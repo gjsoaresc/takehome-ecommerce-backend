@@ -15,7 +15,7 @@ public class OpenAPIConfig {
                 .info(new Info()
                         .title("E-Commerce API")
                         .version("1.0")
-                        .description("API for managing an e-commerce shoe store")
+                        .description("API for managing an e-commerce store")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")));
     }
 }
