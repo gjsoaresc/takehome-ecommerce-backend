@@ -1,23 +1,21 @@
 package com.example.ecommerce.services;
 
+import com.example.ecommerce.exceptions.BadRequestException;
+import com.example.ecommerce.exceptions.ResourceNotFoundException;
 import com.example.ecommerce.models.Cart;
 import com.example.ecommerce.models.CartItem;
 import com.example.ecommerce.models.Product;
-import com.example.ecommerce.repositories.CartItemRepository;
 import com.example.ecommerce.repositories.CartRepository;
 import com.example.ecommerce.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class CartService {
 
     private final CartRepository cartRepository;
-    private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
 
     public Cart getCartByUserId(Long userId) {
@@ -31,9 +29,13 @@ public class CartService {
 
     @Transactional
     public Cart addToCart(Long userId, Long productId, int quantity) {
+        if (quantity <= 0) {
+            throw new BadRequestException("Quantity must be greater than 0.");
+        }
+
         Cart cart = getCartByUserId(userId);
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product", "ID", productId));
 
         CartItem item = new CartItem(null, cart, product, quantity);
         cart.getItems().add(item);
@@ -45,12 +47,21 @@ public class CartService {
     @Transactional
     public void removeFromCart(Long userId, Long itemId) {
         Cart cart = getCartByUserId(userId);
-        cart.getItems().removeIf(item -> item.getId().equals(itemId));
+        boolean removed = cart.getItems().removeIf(item -> item.getId().equals(itemId));
+
+        if (!removed) {
+            throw new ResourceNotFoundException("Cart Item", "ID", itemId);
+        }
+
         cartRepository.save(cart);
     }
 
     public double getTotalPrice(Long userId) {
         Cart cart = getCartByUserId(userId);
+        if (cart.getItems().isEmpty()) {
+            throw new BadRequestException("Cart is empty. Cannot calculate total price.");
+        }
+
         return cart.getItems().stream()
                 .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
                 .sum();
@@ -60,9 +71,18 @@ public class CartService {
     public void checkout(Long userId) {
         Cart cart = getCartByUserId(userId);
         if (cart.getItems().isEmpty()) {
-            throw new RuntimeException("Cart is empty. Add items before checkout.");
+            throw new BadRequestException("Cart is empty. Add items before checkout.");
         }
+
         cart.getItems().clear();
         cartRepository.save(cart);
+    }
+
+    @Transactional
+    public void deleteCart(Long userId) {
+        Cart cart = cartRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Cart", "User ID", userId));
+
+        cartRepository.delete(cart);
     }
 }

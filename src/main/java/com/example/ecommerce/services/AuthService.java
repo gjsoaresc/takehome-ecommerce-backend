@@ -2,8 +2,8 @@ package com.example.ecommerce.services;
 
 import com.example.ecommerce.dto.AuthRequestDTO;
 import com.example.ecommerce.dto.RegisterRequestDTO;
-import com.example.ecommerce.exceptions.UserAlreadyExistsException;
-import com.example.ecommerce.exceptions.UserNotFoundException;
+import com.example.ecommerce.exceptions.auth.UserAlreadyExistsException;
+import com.example.ecommerce.exceptions.auth.UserNotFoundException;
 import com.example.ecommerce.models.User;
 import com.example.ecommerce.repositories.UserRepository;
 import com.example.ecommerce.security.JwtUtil;

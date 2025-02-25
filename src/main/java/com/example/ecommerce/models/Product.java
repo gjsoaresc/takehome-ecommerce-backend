@@ -36,7 +36,7 @@ public class Product {
     @NotBlank(message = "Color cannot be empty")
     private String color;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "size")
     private List<String> sizes;

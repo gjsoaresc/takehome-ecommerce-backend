@@ -9,7 +9,7 @@ public class ProductFilterDTO {
     private String category;
     private String brand;
     private String color;
-    private String size;
+    private String shoeSize;
     private Double minPrice;
     private Double maxPrice;
     private String sortBy = "price";

@@ -3,7 +3,7 @@ package com.example.ecommerce.controllers;
 import com.example.ecommerce.dto.AuthRequestDTO;
 import com.example.ecommerce.dto.AuthResponseDTO;
 import com.example.ecommerce.dto.RegisterRequestDTO;
-import com.example.ecommerce.exceptions.UserAlreadyExistsException;
+import com.example.ecommerce.exceptions.auth.UserAlreadyExistsException;
 import com.example.ecommerce.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

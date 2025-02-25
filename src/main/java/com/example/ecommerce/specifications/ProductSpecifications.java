@@ -1,6 +1,8 @@
 package com.example.ecommerce.specifications;
 
 import com.example.ecommerce.models.Product;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 import org.springframework.data.jpa.domain.Specification;
 
 import jakarta.persistence.criteria.Join;
@@ -35,7 +37,7 @@ public class ProductSpecifications {
     public static Specification<Product> hasSize(String size) {
         return (root, query, criteriaBuilder) -> {
             if (size == null) return null;
-            Join<Object, Object> sizesJoin = root.join("sizes", JoinType.INNER);
+            Join<Object, String> sizesJoin = root.join("sizes");
             return criteriaBuilder.equal(sizesJoin, size);
         };
     }

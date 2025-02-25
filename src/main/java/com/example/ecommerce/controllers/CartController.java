@@ -43,6 +43,30 @@ public class CartController {
         return ResponseEntity.ok(cartService.addToCart(userId, productId, quantity));
     }
 
+    @Operation(summary = "Remove item from cart", description = "Removes a specific item from the user's cart.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Item removed successfully"),
+            @ApiResponse(responseCode = "404", description = "Item not found in cart")
+    })
+    @DeleteMapping(value = "/{userId}/remove/{itemId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> removeFromCart(
+            @Parameter(description = "User ID", required = true) @PathVariable Long userId,
+            @Parameter(description = "Cart Item ID", required = true) @PathVariable Long itemId) {
+        cartService.removeFromCart(userId, itemId);
+        return ResponseEntity.ok("{\"message\": \"Item removed successfully\"}");
+    }
+
+    @Operation(summary = "Get total cart price", description = "Calculates the total price of items in the user's cart.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Total price retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Cart is empty")
+    })
+    @GetMapping(value = "/{userId}/total", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> getTotalPrice(@Parameter(description = "User ID", required = true) @PathVariable Long userId) {
+        double totalPrice = cartService.getTotalPrice(userId);
+        return ResponseEntity.ok("{\"total\": " + totalPrice + "}");
+    }
+
     @Operation(summary = "Checkout cart", description = "Processes the checkout of a user's cart.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Checkout successful"),
@@ -51,6 +75,17 @@ public class CartController {
     @PostMapping(value = "/{userId}/checkout", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> checkout(@Parameter(description = "User ID", required = true) @PathVariable Long userId) {
         cartService.checkout(userId);
-        return ResponseEntity.ok("✅ Checkout successful!");
+        return ResponseEntity.ok("{\"message\": \"Checkout successful!\"}");
+    }
+
+    @Operation(summary = "Delete cart", description = "Deletes the entire cart of a user.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Cart deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Cart not found")
+    })
+    @DeleteMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteCart(@Parameter(description = "User ID", required = true) @PathVariable Long userId) {
+        cartService.deleteCart(userId);
+        return ResponseEntity.ok("{\"message\": \"Cart deleted successfully\"}");
     }
 }
