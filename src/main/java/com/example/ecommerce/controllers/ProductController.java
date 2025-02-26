@@ -1,5 +1,6 @@
 package com.example.ecommerce.controllers;
 
+import com.example.ecommerce.dto.FiltersDTO;
 import com.example.ecommerce.dto.PaginatedResponseDTO;
 import com.example.ecommerce.dto.ProductFilterDTO;
 import com.example.ecommerce.models.Product;
@@ -15,6 +16,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
@@ -76,10 +80,10 @@ public class ProductController {
     @Operation(summary = "Filter products with pagination", description = "Returns paginated and filtered product results.")
     @GetMapping(value = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PaginatedResponseDTO<Product>> filterProducts(
-            @Parameter(description = "Category of the product") @RequestParam(required = false) String category,
-            @Parameter(description = "Brand of the product") @RequestParam(required = false) String brand,
-            @Parameter(description = "Color of the product") @RequestParam(required = false) String color,
-            @Parameter(description = "Shoe size of the product") @RequestParam(name = "shoeSize", required = false) String shoeSize,
+            @Parameter(description = "Categories of the product (comma-separated)") @RequestParam(required = false) String categories,
+            @Parameter(description = "Brands of the product (comma-separated)") @RequestParam(required = false) String brands,
+            @Parameter(description = "Colors of the product (comma-separated)") @RequestParam(required = false) String colors,
+            @Parameter(description = "Shoe sizes of the product (comma-separated)") @RequestParam(required = false) String shoeSizes,
             @Parameter(description = "Minimum price of the product") @RequestParam(required = false) Double minPrice,
             @Parameter(description = "Maximum price of the product") @RequestParam(required = false) Double maxPrice,
             @Parameter(description = "Field to sort by (default: price)") @RequestParam(defaultValue = "price") String sortBy,
@@ -88,17 +92,20 @@ public class ProductController {
             @Parameter(description = "Items per page (default: 10)") @RequestParam(defaultValue = "10") int sizePerPage
     ) {
         ProductFilterDTO filterDTO = new ProductFilterDTO();
-        filterDTO.setCategory(category);
-        filterDTO.setBrand(brand);
-        filterDTO.setColor(color);
-        filterDTO.setShoeSize(shoeSize);
+
+        filterDTO.setCategories(categories != null ? Arrays.asList(categories.split(",")) : List.of());
+        filterDTO.setBrands(brands != null ? Arrays.asList(brands.split(",")) : List.of());
+        filterDTO.setColors(colors != null ? Arrays.asList(colors.split(",")) : List.of());
+        filterDTO.setShoeSizes(shoeSizes != null ? Arrays.asList(shoeSizes.split(",")) : List.of());
         filterDTO.setMinPrice(minPrice);
         filterDTO.setMaxPrice(maxPrice);
         filterDTO.setSortBy(sortBy);
         filterDTO.setSortOrder(sortOrder);
 
+        FiltersDTO filters = productService.getProductFilterInfo();
+
         Page<Product> filteredProducts = productService.getFilteredProducts(filterDTO, page, sizePerPage);
-        return ResponseEntity.ok(new PaginatedResponseDTO<>(filteredProducts));
+        return ResponseEntity.ok(new PaginatedResponseDTO<>(filteredProducts, filters));
     }
 
 

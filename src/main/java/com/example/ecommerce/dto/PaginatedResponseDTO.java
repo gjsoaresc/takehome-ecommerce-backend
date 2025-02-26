@@ -9,8 +9,9 @@ import java.util.List;
 public class PaginatedResponseDTO<T> {
     private final List<T> content;
     private final PaginationDTO pagination;
+    private final FiltersDTO filters;
 
-    public PaginatedResponseDTO(Page<T> page) {
+    public PaginatedResponseDTO(Page<T> page, FiltersDTO filters) {
         PaginationDTO pagination = new PaginationDTO(
                 page.getTotalPages(),
                 page.getTotalElements(),
@@ -22,5 +23,6 @@ public class PaginatedResponseDTO<T> {
 
         this.content = page.getContent();
         this.pagination = pagination;
+        this.filters = filters;
     }
 }

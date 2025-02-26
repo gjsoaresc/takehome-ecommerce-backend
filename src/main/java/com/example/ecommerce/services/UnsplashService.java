@@ -49,7 +49,7 @@ public class UnsplashService {
                 }
             }
         } catch (Exception e) {
-            System.err.println("🔴 Error fetching image from Unsplash: " + e.getMessage());
+            System.err.println("Error fetching image from Unsplash: " + e.getMessage());
         }
 
         return getDefaultImage();

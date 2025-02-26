@@ -1,28 +1,34 @@
 package com.example.ecommerce.specifications;
 
 import com.example.ecommerce.models.Product;
-import jakarta.persistence.criteria.Root;
-import jakarta.persistence.criteria.Subquery;
 import org.springframework.data.jpa.domain.Specification;
 
 import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
+
+import java.util.List;
 
 public class ProductSpecifications {
 
-    public static Specification<Product> hasCategory(String category) {
+    public static Specification<Product> hasCategories(List<String> categories) {
         return (root, query, criteriaBuilder) ->
-                category == null ? null : criteriaBuilder.equal(root.get("category"), category);
+                (categories == null || categories.isEmpty()) ? null : root.get("category").in(categories);
     }
 
-    public static Specification<Product> hasBrand(String brand) {
+    public static Specification<Product> hasBrands(List<String> brands) {
         return (root, query, criteriaBuilder) ->
-                brand == null ? null : criteriaBuilder.equal(root.get("brand"), brand);
+                (brands == null || brands.isEmpty()) ? null : root.get("brand").in(brands);
     }
 
-    public static Specification<Product> hasColor(String color) {
+    public static Specification<Product> hasColors(List<String> colors) {
         return (root, query, criteriaBuilder) ->
-                color == null ? null : criteriaBuilder.equal(root.get("color"), color);
+                (colors == null || colors.isEmpty()) ? null : root.get("color").in(colors);
+    }
+
+    public static Specification<Product> hasShoeSizes(List<String> shoeSizes) {
+        return (root, query, criteriaBuilder) -> {
+            if (shoeSizes == null || shoeSizes.isEmpty()) return null;
+            return root.join("sizes").in(shoeSizes);
+        };
     }
 
     public static Specification<Product> priceBetween(Double minPrice, Double maxPrice) {
@@ -41,4 +47,5 @@ public class ProductSpecifications {
             return criteriaBuilder.equal(sizesJoin, size);
         };
     }
+
 }

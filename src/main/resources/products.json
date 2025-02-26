@@ -1,0 +1,173 @@
+[
+  {
+    "name": "Nike Air Force 1",
+    "price": 120.00,
+    "description": "Classic all-white sneakers with premium comfort.",
+    "category": "Sneakers",
+    "brand": "Nike",
+    "color": "Yellow",
+    "sizes": ["40", "41", "42", "43"]
+  },
+  {
+    "name": "Adidas Stan Smith",
+    "price": 100.00,
+    "description": "Timeless sneakers with a sleek and simple design.",
+    "category": "Sneakers",
+    "brand": "Adidas",
+    "color": "Green",
+    "sizes": ["39", "40", "41", "42"]
+  },
+  {
+    "name": "Puma Suede Classic",
+    "price": 90.00,
+    "description": "A classic sneaker style with a comfortable fit.",
+    "category": "Sneakers",
+    "brand": "Puma",
+    "color": "Red",
+    "sizes": ["40", "41", "42", "43", "44"]
+  },
+  {
+    "name": "New Balance 574",
+    "price": 110.00,
+    "description": "A versatile sneaker with excellent support.",
+    "category": "Sneakers",
+    "brand": "New Balance",
+    "color": "Blue",
+    "sizes": ["38", "39", "40", "41", "42"]
+  },
+  {
+    "name": "Timberland Boat Shoe",
+    "price": 140.00,
+    "description": "Premium leather boat shoes for casual comfort.",
+    "category": "Boat Shoes",
+    "brand": "Timberland",
+    "color": "Teal",
+    "sizes": ["40", "41", "42", "43", "44"]
+  },
+  {
+    "name": "Sperry Boat Shoe",
+    "price": 130.00,
+    "description": "Durable and stylish boat shoes for any occasion.",
+    "category": "Boat Shoes",
+    "brand": "Sperry",
+    "color": "Orange",
+    "sizes": ["38", "39", "40", "42", "44"]
+  },
+  {
+    "name": "Dr. Martens 1461",
+    "price": 160.00,
+    "description": "Leather derby shoes with the iconic Dr. Martens style.",
+    "category": "Derby",
+    "brand": "Dr. Martens",
+    "color": "Purple",
+    "sizes": ["39", "40", "41", "42", "43"]
+  },
+  {
+    "name": "Clarks Tilden Walk",
+    "price": 110.00,
+    "description": "Smart and comfortable leather Derby shoes.",
+    "category": "Derby",
+    "brand": "Clarks",
+    "color": "Yellow",
+    "sizes": ["40", "41", "42", "43"]
+  },
+  {
+    "name": "Cole Haan Crosscourt",
+    "price": 130.00,
+    "description": "Classic Oxford shoes with a modern touch.",
+    "category": "Oxfords",
+    "brand": "Cole Haan",
+    "color": "Teal",
+    "sizes": ["39", "40", "42", "44"]
+  },
+  {
+    "name": "Allen Edmonds Park",
+    "price": 395.00,
+    "description": "Premium leather Oxfords for formal wear.",
+    "category": "Oxfords",
+    "brand": "Allen Edmonds",
+    "color": "Orange",
+    "sizes": ["40", "41", "42"]
+  },
+  {
+    "name": "Gucci Leather Loafers",
+    "price": 750.00,
+    "description": "Luxury leather loafers for an elegant look.",
+    "category": "Loafers",
+    "brand": "Gucci",
+    "color": "Magenta",
+    "sizes": ["39", "40", "41", "42", "43", "44"]
+  },
+  {
+    "name": "G.H. Bass Weejuns",
+    "price": 150.00,
+    "description": "Classic penny loafers with timeless style.",
+    "category": "Loafers",
+    "brand": "G.H. Bass",
+    "color": "Red",
+    "sizes": ["38", "39", "40", "41", "42"]
+  },
+  {
+    "name": "ECCO Helsinki 2",
+    "price": 170.00,
+    "description": "Comfortable slip-on dress shoes.",
+    "category": "Slip-Ons",
+    "brand": "ECCO",
+    "color": "Purple",
+    "sizes": ["40", "41", "42", "43"]
+  },
+  {
+    "name": "Vans Classic Slip-On",
+    "price": 60.00,
+    "description": "Easy slip-on sneakers with casual comfort.",
+    "category": "Slip-Ons",
+    "brand": "Vans",
+    "color": "Teal",
+    "sizes": ["39", "40", "41", "42", "44"]
+  },
+  {
+    "name": "Hoka Clifton 8",
+    "price": 140.00,
+    "description": "High-performance running shoes.",
+    "category": "Running Shoes",
+    "brand": "Hoka One One",
+    "color": "Blue",
+    "sizes": ["40", "41", "42", "43", "44"]
+  },
+  {
+    "name": "ASICS Gel-Kayano 29",
+    "price": 160.00,
+    "description": "Stable and cushioned running shoes.",
+    "category": "Running Shoes",
+    "brand": "ASICS",
+    "color": "Green",
+    "sizes": ["40", "42"]
+  },
+  {
+    "name": "Reebok Classic",
+    "price": 90.00,
+    "description": "Timeless leather sneakers for everyday wear.",
+    "category": "Sneakers",
+    "brand": "Reebok",
+    "color": "Magenta",
+    "sizes": ["38", "39", "40", "41", "42", "43"]
+  },
+  {
+    "name": "Nike Pegasus Trail",
+    "price": 150.00,
+    "description": "Versatile trail running shoes for off-road adventures.",
+    "category": "Running Shoes",
+    "brand": "Nike",
+    "color": "Yellow",
+    "sizes": ["40", "41", "42", "43", "44"]
+  },
+  {
+    "name": "Under Armour HOVR",
+    "price": 130.00,
+    "description": "Soft and responsive running shoes.",
+    "category": "Running Shoes",
+    "brand": "Under Armour",
+    "color": "Orange",
+    "sizes": ["39", "40", "41", "42"]
+  }
+]

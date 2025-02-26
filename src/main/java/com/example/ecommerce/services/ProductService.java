@@ -1,16 +1,22 @@
 package com.example.ecommerce.services;
 
+import com.example.ecommerce.dto.FiltersDTO;
 import com.example.ecommerce.dto.ProductFilterDTO;
 import com.example.ecommerce.exceptions.BadRequestException;
 import com.example.ecommerce.exceptions.ResourceNotFoundException;
 import com.example.ecommerce.models.Product;
 import com.example.ecommerce.repositories.ProductRepository;
 import com.example.ecommerce.specifications.ProductSpecifications;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -67,10 +73,10 @@ public class ProductService {
 
     public Page<Product> getFilteredProducts(ProductFilterDTO filterDTO, int page, int size) {
         Specification<Product> spec = Specification
-                .where(ProductSpecifications.hasCategory(filterDTO.getCategory()))
-                .and(ProductSpecifications.hasBrand(filterDTO.getBrand()))
-                .and(ProductSpecifications.hasColor(filterDTO.getColor()))
-                .and(ProductSpecifications.hasSize(filterDTO.getShoeSize()))
+                .where(ProductSpecifications.hasCategories(filterDTO.getCategories()))
+                .and(ProductSpecifications.hasBrands(filterDTO.getBrands()))
+                .and(ProductSpecifications.hasColors(filterDTO.getColors()))
+                .and(ProductSpecifications.hasShoeSizes(filterDTO.getShoeSizes()))
                 .and(ProductSpecifications.priceBetween(filterDTO.getMinPrice(), filterDTO.getMaxPrice()));
 
         Sort sort = Sort.by(
@@ -86,6 +92,18 @@ public class ProductService {
     public void deleteProduct(Long id) {
         Product product = getProductById(id);
         productRepository.delete(product);
+    }
+
+    public FiltersDTO getProductFilterInfo() {
+        Object[] result = (Object[]) productRepository.getFilterInfoNative();
+
+        List<String> categories = result[0] != null ? Arrays.asList(result[0].toString().split(",")) : List.of();
+        List<String> brands = result[1] != null ? Arrays.asList(result[1].toString().split(",")) : List.of();
+        List<String> colors = result[2] != null ? Arrays.asList(result[2].toString().split(",")) : List.of();
+        List<String> sizes = result[3] != null ? Arrays.asList(result[3].toString().split(",")) : List.of();
+        Integer maxPrice = result[4] != null ? ((Number) result[4]).intValue() : 0;
+
+        return new FiltersDTO(categories, brands, colors, sizes, maxPrice);
     }
 
     private void validateProduct(Product product) {
