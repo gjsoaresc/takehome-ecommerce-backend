@@ -80,6 +80,7 @@ public class ProductController {
     @Operation(summary = "Filter products with pagination", description = "Returns paginated and filtered product results.")
     @GetMapping(value = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PaginatedResponseDTO<Product>> filterProducts(
+            @Parameter(description = "Search query") @RequestParam(required = false) String search,
             @Parameter(description = "Categories of the product (comma-separated)") @RequestParam(required = false) String categories,
             @Parameter(description = "Brands of the product (comma-separated)") @RequestParam(required = false) String brands,
             @Parameter(description = "Colors of the product (comma-separated)") @RequestParam(required = false) String colors,
@@ -93,6 +94,7 @@ public class ProductController {
     ) {
         ProductFilterDTO filterDTO = new ProductFilterDTO();
 
+        filterDTO.setSearch(search);
         filterDTO.setCategories(categories != null ? Arrays.asList(categories.split(",")) : List.of());
         filterDTO.setBrands(brands != null ? Arrays.asList(brands.split(",")) : List.of());
         filterDTO.setColors(colors != null ? Arrays.asList(colors.split(",")) : List.of());

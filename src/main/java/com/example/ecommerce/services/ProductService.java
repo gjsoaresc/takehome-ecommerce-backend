@@ -73,7 +73,8 @@ public class ProductService {
 
     public Page<Product> getFilteredProducts(ProductFilterDTO filterDTO, int page, int size) {
         Specification<Product> spec = Specification
-                .where(ProductSpecifications.hasCategories(filterDTO.getCategories()))
+                .where(ProductSpecifications.containsNameOrBrand(filterDTO.getSearch()))
+                .and(ProductSpecifications.hasCategories(filterDTO.getCategories()))
                 .and(ProductSpecifications.hasBrands(filterDTO.getBrands()))
                 .and(ProductSpecifications.hasColors(filterDTO.getColors()))
                 .and(ProductSpecifications.hasShoeSizes(filterDTO.getShoeSizes()))

@@ -40,11 +40,18 @@ public class ProductSpecifications {
         };
     }
 
-    public static Specification<Product> hasSize(String size) {
+    public static Specification<Product> containsNameOrBrand(String search) {
         return (root, query, criteriaBuilder) -> {
-            if (size == null) return null;
-            Join<Object, String> sizesJoin = root.join("sizes");
-            return criteriaBuilder.equal(sizesJoin, size);
+            if (search == null || search.isBlank()) {
+                return null;
+            }
+
+            String pattern = search.trim().toLowerCase() + "%";
+
+            return criteriaBuilder.or(
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), pattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("brand")), pattern)
+            );
         };
     }
 

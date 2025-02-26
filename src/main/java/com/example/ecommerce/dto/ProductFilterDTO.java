@@ -8,6 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ProductFilterDTO {
+    private String search;
     private List<String> categories;
     private List<String> brands;
     private List<String> colors;
